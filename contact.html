@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — Satya Computers</title>
+    <meta name="description"
+        content="Contact Satya Computers Hyderabad for premium refurbished laptops, repairs, and IT solutions.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Contact Page Styles ────────────────────────────────── */
+        .contact-page {
+            padding: 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            margin-top: 60px;
+        }
+
+        /* ── Info Column ─────────────────────────── */
+        .contact-info-col {}
+
+        .contact-method {
+            margin-bottom: 48px;
+            position: relative;
+            padding-left: 24px;
+            border-left: 1px solid var(--gray-200);
+        }
+
+        .contact-method:hover {
+            border-left-color: var(--orange);
+        }
+
+        .contact-method h3 {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 12px;
+        }
+
+        .contact-method p,
+        .contact-method a {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--black);
+            font-weight: 500;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-method a:hover {
+            color: var(--orange);
+        }
+
+        .contact-method span {
+            font-size: 14px;
+            color: var(--gray-400);
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* ── Form Column ─────────────────────────── */
+        .contact-form-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 60px;
+            position: relative;
+        }
+
+        .contact-form-card::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 60px;
+            height: 60px;
+            border-top: 4px solid var(--orange);
+            border-left: 4px solid var(--orange);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            border: none;
+            border-bottom: 2px solid var(--gray-100);
+            padding: 12px 0;
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--black);
+            background: transparent;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-bottom-color: var(--orange);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 20px 40px;
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+        }
+
+        .submit-btn:hover {
+            background: var(--orange);
+            transform: translateY(-2px);
+        }
+
+        /* ── Map Strip ─────────────────────────── */
+        .map-section {
+            margin-top: 100px;
+            height: 500px;
+            background: var(--gray-100);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(8, 6, 15, 0.05), rgba(8, 6, 15, 0.1));
+            pointer-events: none;
+        }
+
+        .map-marker {
+            width: 64px;
+            height: 64px;
+            background: var(--orange);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(232, 93, 4, 0.3);
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .map-marker::after {
+            content: 'SC';
+            transform: rotate(45deg);
+            color: var(--white);
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 14px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: rotate(-45deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(-45deg) translateY(-20px);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .contact-form-card {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-page {
+                padding: 60px 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="announcement-bar">
+        <p>PREMIUM BUSINESS WORKSTATIONS NOW IN STOCK — <a href="products.html">SHOP NOW</a></p>
+    </div>
+
+    <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+            <a href="index.html" class="site-logo">
+                <img src="images/logo.jpg" alt="Satya Computers Logo">
+                <div class="logo-text"><span>SATYA</span><span>COMPUTERS</span></div>
+            </a>
+            <nav class="site-nav" id="siteNav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="solutions.html" class="nav-link">Solutions</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="icon-btn" title="Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="contact-page">
+        <div class="page-hero-overline reveal">Reach Out</div>
+        <h1 class="page-hero-title reveal d1">CONTACT <span>US</span></h1>
+        <div class="page-hero-line reveal d2"></div>
+
+        <div class="contact-grid">
+            <!-- Info Column -->
+            <div class="contact-info-col">
+                <div class="contact-method reveal-left d1">
+                    <h3>Location</h3>
+                    <p>27, Satyam Theatre Rd, Kumar Basti, Srinivasa Nagar, Ameerpet, Hyderabad, Telangana 500038,
+                        India.</p>
+                    <span>Main Showroom & Service Center</span>
+                </div>
+
+                <div class="contact-method reveal-left d2">
+                    <h3>WhatsApp & Call</h3>
+                    <a href="tel:+918309178589">+91 8309178589</a>
+                    <span>Mon – Sat, 10:00 AM – 8:00 PM</span>
+                </div>
+
+                <div class="contact-method reveal-left d3">
+                    <h3>Email Support</h3>
+                    <a href="mailto:support@satyacomputers.topiko.com">support@satyacomputers.topiko.com</a>
+                    <span>Usually replies within 24 hours</span>
+                </div>
+
+                <div class="contact-method reveal-left d4">
+                    <h3>Operational Hours</h3>
+                    <p>Monday – Saturday: 10:00 AM – 8:30 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div class="contact-form-col reveal-right d2">
+                <div class="contact-form-card">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" placeholder="E.g. Ramesh Kumar" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" placeholder="E.g. ramesh@example.com"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="E.g. +91 98765 43210" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Enquiry Type</label>
+                                <select id="subject" name="subject">
+                                    <option value="sales">Product Sales</option>
+                                    <option value="service" selected>Repair & Service</option>
+                                    <option value="bulk">Bulk/Corporate Order</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 40px;">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" placeholder="How can we help you today?"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span>SEND MESSAGE</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="map-section reveal">
+        <div class="map-overlay">
+            <div class="map-marker"></div>
+        </div>
+        <!-- Using a styled placeholder for the map to maintain premium aesthetic without complex API keys -->
+        <div
+            style="width: 100%; height: 100%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+            <p
+                style="font-family: var(--font-display); font-size: 14px; color: var(--gray-400); letter-spacing: 0.1em; margin-top: 80px;">
+                Srinivasa Nagar, Ameerpet, Hyderabad</p>
+            <a href="https://maps.google.com/?q=Satya+Computers+Ameerpet" target="_blank" class="btn-outline"
+                style="margin-top: 16px;">OPEN IN GOOGLE MAPS</a>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="images/logo.jpg" alt="Satya Computers">
+                    <div class="footer-logo-text"><span>SATYA</span><span>COMPUTERS</span></div>
+                </div>
+                <p class="footer-tagline">To provide reliable and affordable computing solutions to students,
+                    professionals, and tech enthusiasts.</p>
+                <a href="https://wa.me/918309178589" target="_blank" class="footer-whatsapp">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.570-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    WHATSAPP US
+                </a>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="cart.html">Your Cart</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="products.html">Laptop & Desktop Sales</a></li>
+                    <li><a href="contact.html">Repair & Hardware Upgrades</a></li>
+                    <li><a href="contact.html">Data Recovery & Software</a></li>
+                    <li><a href="contact.html">IT Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <div class="footer-contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z" />
+                    </svg>
+                    <span>27, Satyam Theatre Rd, Kumar Basti, Ameerpet, Hyderabad 500038</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                    </svg>
+                    <a href="tel:+918309178589">+91 8309178589</a>
+                </div>
+                <a href="contact.html" class="footer-msg-btn">SEND A MESSAGE →</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Satya Computers. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Refund Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+    <script src="main.js"></script>
+    <script>
+        // Form Handling
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Visual feedback
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            submitBtn.innerHTML = '<span>SENDING...</span>';
+
+            // Simulate API call
+            setTimeout(() => {
+                showToast('✓ Message sent successfully! We will contact you soon.');
+                contactForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.innerHTML = originalText;
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

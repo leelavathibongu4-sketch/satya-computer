@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment — Satya Computers</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .payment-page {
+            padding: 60px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 60vh;
+        }
+
+        .cart-steps {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 24px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+        }
+
+        .step.active {
+            color: var(--orange);
+        }
+
+        .step.done {
+            color: var(--gray-600);
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gray-200);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .step.active .step-num {
+            border-color: var(--orange);
+            color: var(--orange);
+            background: rgba(232, 93, 4, 0.08);
+        }
+
+        .step.done .step-num {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: var(--white);
+        }
+
+        .step-arrow {
+            width: 40px;
+            height: 1px;
+            background: var(--gray-200);
+        }
+
+        .payment-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* Payment Panel */
+        .payment-panel {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 36px;
+        }
+
+        .payment-panel h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        /* UPI Panel */
+        .upi-panel {
+            text-align: center;
+        }
+
+        .upi-qr {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 2px;
+            padding: 10px;
+        }
+
+        .qr-cell {
+            aspect-ratio: 1;
+            background: var(--black);
+            border-radius: 1px;
+        }
+
+        .qr-cell.w {
+            background: var(--white);
+        }
+
+        .upi-id {
+            font-family: var(--font-mono);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--orange);
+            letter-spacing: 0.06em;
+            background: var(--gray-100);
+            padding: 10px 20px;
+            margin: 0 auto 20px;
+            display: inline-block;
+        }
+
+        .upi-or {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin: 16px 0;
+        }
+
+        .upi-apps {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .upi-app {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--gray-200);
+            padding: 10px 16px;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 0.06em;
+        }
+
+        .upi-app:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .upi-app-icon {
+            font-size: 20px;
+        }
+
+        .upi-amount {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 24px;
+        }
+
+        .upi-amount span {
+            color: var(--orange);
+        }
+
+        /* Card Panel */
+        .card-panel {
+            display: none;
+        }
+
+        .credit-card-visual {
+            background: linear-gradient(135deg, var(--black), var(--gray-800));
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            color: var(--white);
+        }
+
+        .credit-card-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(232, 93, 4, 0.3), transparent 60%);
+        }
+
+        .card-chip {
+            width: 36px;
+            height: 28px;
+            background: linear-gradient(135deg, #d4a017, #f0c040);
+            border-radius: 4px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .card-number {
+            font-family: var(--font-mono);
+            font-size: 18px;
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .card-meta label {
+            display: block;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+        }
+
+        .form-group input {
+            border: 1px solid var(--gray-200);
+            padding: 12px 14px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--gray-800);
+            background: var(--white);
+            outline: none;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .form-group input:focus {
+            border-color: var(--orange);
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* COD Panel */
+        .cod-panel {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cod-icon {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+
+        .cod-panel h4 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .cod-panel p {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        /* Pay Button */
+        .pay-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: var(--transition);
+            margin-top: 24px;
+            clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pay-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--orange-light);
+            transform: translateX(-100%);
+            transition: transform var(--transition);
+        }
+
+        .pay-btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .pay-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pay-btn.loading {
+            pointer-events: none;
+        }
+
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--gray-400);
+            font-family: var(--font-mono);
+            letter-spacing: 0.08em;
+        }
+
+        /* Order Summary (right) */
+        .payment-summary {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 28px;
+        }
+
+        .payment-summary h3 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .psum-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+
+        .psum-line.total {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--black);
+            padding-top: 10px;
+            margin-top: 4px;
+            border-top: 2px solid var(--black);
+        }
+
+        .psum-customer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .psum-customer h4 {
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 10px;
+        }
+
+        .psum-customer p {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        /* Success overlay */
+        .success-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 6, 15, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .success-card {
+            background: var(--white);
+            padding: 60px 48px;
+            text-align: center;
+            max-width: 480px;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .success-overlay.show .success-card {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce-in 0.6s ease 0.3s both;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .success-card h2 {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .success-card h2 span {
+            color: var(--orange);
+        }
+
+        .success-card p {
+            font-size: 16px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .order-id {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            background: var(--gray-100);
+            padding: 8px 16px;
+            display: inline-block;
+            margin-bottom: 32px;
+            color: var(--orange);
+        }
+
+        @media (max-width: 768px) {
+            .payment-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-page {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="announcement-bar">
+        <p>PREMIUM BUSINESS WORKSTATIONS NOW IN STOCK — <a href="products.html">SHOP NOW</a></p>
+    </div>
+    <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+            <a href="index.html" class="site-logo">
+                <img src="images/logo.jpg" alt="Satya Computers Logo" />
+                <div class="logo-text"><span>SATYA</span><span>COMPUTERS</span></div>
+            </a>
+            <nav class="site-nav" id="siteNav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="solutions.html" class="nav-link">Solutions</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="payment-page">
+        <div class="cart-steps">
+            <div class="step done">
+                <div class="step-num">✓</div><span>CART</span>
+            </div>
+            <div class="step-arrow"></div>
+            <div class="step done">
+                <div class="step-num">✓</div><span>CHECKOUT</span>
+            </div>
+            <div class="step-arrow"></div>
+            <div class="step active">
+                <div class="step-num">3</div><span>PAYMENT</span>
+            </div>
+        </div>
+
+        <div class="page-hero-overline" style="margin-bottom:8px;">Secure Payment</div>
+        <h1
+            style="font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:900;text-transform:uppercase;line-height:0.9;margin-bottom:40px;">
+            PAY<span style="color:var(--orange);font-style:italic;">MENT</span></h1>
+
+        <div class="payment-layout">
+            <div class="payment-panel reveal">
+                <h3 id="panelTitle">PAY WITH UPI</h3>
+
+                <!-- UPI -->
+                <div class="upi-panel" id="upiPanel">
+                    <div class="upi-amount">₹<span id="upiAmount">0</span></div>
+                    <p style="font-size:14px;color:var(--gray-600);margin-bottom:16px;">Scan QR code with any UPI app
+                    </p>
+                    <div class="upi-qr">
+                        <div style="padding:16px;background:white;">
+                            <!-- Decorative QR-like pattern -->
+                            <svg width="160" height="160" viewBox="0 0 160 160" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="160" height="160" fill="white" />
+                                <!-- corner squares -->
+                                <rect x="10" y="10" width="40" height="40" rx="4" fill="#08060f" />
+                                <rect x="16" y="16" width="28" height="28" rx="2" fill="white" />
+                                <rect x="22" y="22" width="16" height="16" rx="1" fill="#08060f" />
+                                <rect x="110" y="10" width="40" height="40" rx="4" fill="#08060f" />
+                                <rect x="116" y="16" width="28" height="28" rx="2" fill="white" />
+                                <rect x="122" y="22" width="16" height="16" rx="1" fill="#08060f" />
+                                <rect x="10" y="110" width="40" height="40" rx="4" fill="#08060f" />
+                                <rect x="16" y="116" width="28" height="28" rx="2" fill="white" />
+                                <rect x="22" y="122" width="16" height="16" rx="1" fill="#08060f" />
+                                <!-- middle data -->
+                                <rect x="58" y="10" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="10" width="6" height="6" fill="#08060f" />
+                                <rect x="82" y="10" width="6" height="6" fill="#08060f" />
+                                <rect x="58" y="22" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="22" width="6" height="6" fill="#08060f" />
+                                <rect x="82" y="22" width="6" height="6" fill="#e85d04" />
+                                <rect x="58" y="34" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="34" width="6" height="6" fill="#08060f" />
+                                <rect x="58" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="82" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="94" y="58" width="6" height="6" fill="#e85d04" />
+                                <rect x="10" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="22" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="34" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="46" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="58" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="70" width="6" height="6" fill="#e85d04" />
+                                <rect x="82" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="94" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="106" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="118" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="130" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="142" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="10" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="22" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="34" y="70" width="6" height="6" fill="#08060f" />
+                                <rect x="58" y="82" width="6" height="6" fill="#08060f" />
+                                <rect x="82" y="82" width="6" height="6" fill="#08060f" />
+                                <rect x="94" y="82" width="6" height="6" fill="#08060f" />
+                                <rect x="118" y="82" width="6" height="6" fill="#08060f" />
+                                <rect x="130" y="82" width="6" height="6" fill="#e85d04" />
+                                <rect x="58" y="94" width="6" height="6" fill="#e85d04" />
+                                <rect x="70" y="94" width="6" height="6" fill="#08060f" />
+                                <rect x="82" y="94" width="6" height="6" fill="#08060f" />
+                                <rect x="94" y="94" width="6" height="6" fill="#08060f" />
+                                <rect x="106" y="94" width="6" height="6" fill="#08060f" />
+                                <rect x="118" y="94" width="6" height="6" fill="#08060f" />
+                                <rect x="58" y="106" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="106" width="6" height="6" fill="#08060f" />
+                                <rect x="82" y="106" width="6" height="6" fill="#08060f" />
+                                <rect x="106" y="106" width="6" height="6" fill="#08060f" />
+                                <rect x="58" y="118" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="118" width="6" height="6" fill="#e85d04" />
+                                <rect x="82" y="118" width="6" height="6" fill="#08060f" />
+                                <rect x="94" y="118" width="6" height="6" fill="#08060f" />
+                                <rect x="106" y="130" width="6" height="6" fill="#08060f" />
+                                <rect x="118" y="130" width="6" height="6" fill="#08060f" />
+                                <rect x="130" y="130" width="6" height="6" fill="#08060f" />
+                                <rect x="142" y="130" width="6" height="6" fill="#e85d04" />
+                                <rect x="58" y="130" width="6" height="6" fill="#08060f" />
+                                <rect x="82" y="130" width="6" height="6" fill="#08060f" />
+                                <rect x="94" y="130" width="6" height="6" fill="#08060f" />
+                                <rect x="58" y="142" width="6" height="6" fill="#08060f" />
+                                <rect x="70" y="142" width="6" height="6" fill="#08060f" />
+                                <rect x="94" y="142" width="6" height="6" fill="#08060f" />
+                                <rect x="106" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="118" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="130" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="142" y="58" width="6" height="6" fill="#08060f" />
+                                <rect x="106" y="106" width="6" height="6" fill="#08060f" />
+                                <rect x="118" y="106" width="6" height="6" fill="#08060f" />
+                                <rect x="130" y="106" width="6" height="6" fill="#08060f" />
+                                <rect x="142" y="106" width="6" height="6" fill="#08060f" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="upi-id">8309178589@upi</div>
+                    <div class="upi-or">— OR USE UPI APP —</div>
+                    <div class="upi-apps">
+                        <div class="upi-app"><span class="upi-app-icon">📱</span>PhonePe</div>
+                        <div class="upi-app"><span class="upi-app-icon">🔵</span>GPay</div>
+                        <div class="upi-app"><span class="upi-app-icon">🟣</span>Paytm</div>
+                    </div>
+                    <button class="pay-btn" onclick="confirmPayment()"><span>I'VE PAID — CONFIRM ORDER →</span></button>
+                    <div class="secure-badge">🔒 SECURED BY 256-BIT SSL ENCRYPTION</div>
+                </div>
+
+                <!-- Card -->
+                <div class="card-panel" id="cardPanel">
+                    <div class="credit-card-visual">
+                        <div class="card-chip"></div>
+                        <div class="card-number" id="cardNumDisplay">•••• •••• •••• ••••</div>
+                        <div class="card-meta">
+                            <div><label>CARD HOLDER</label><span id="cardNameDisplay">YOUR NAME</span></div>
+                            <div><label>EXPIRES</label><span id="cardExpDisplay">MM/YY</span></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Card Number *</label>
+                        <input type="text" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19"
+                            oninput="formatCard(this)" />
+                    </div>
+                    <div class="form-group">
+                        <label>Card Holder Name *</label>
+                        <input type="text" id="cardName" placeholder="Name as on card"
+                            oninput="document.getElementById('cardNameDisplay').textContent=this.value||'YOUR NAME'" />
+                    </div>
+                    <div class="card-row">
+                        <div class="form-group">
+                            <label>Expiry (MM/YY) *</label>
+                            <input type="text" id="cardExp" placeholder="MM/YY" maxlength="5"
+                                oninput="document.getElementById('cardExpDisplay').textContent=this.value||'MM/YY'" />
+                        </div>
+                        <div class="form-group">
+                            <label>CVV *</label>
+                            <input type="password" id="cardCvv" placeholder="•••" maxlength="4" />
+                        </div>
+                    </div>
+                    <button class="pay-btn" onclick="confirmPayment()"><span>PAY SECURELY →</span></button>
+                    <div class="secure-badge">🔒 SECURED BY 256-BIT SSL ENCRYPTION</div>
+                </div>
+
+                <!-- COD -->
+                <div class="cod-panel" id="codPanel">
+                    <div class="cod-icon">💵</div>
+                    <h4>CASH ON DELIVERY</h4>
+                    <p style="margin-bottom:24px;">Pay in cash when your order is delivered. Our delivery team will
+                        collect the payment at your doorstep.</p>
+                    <div class="upi-amount">₹<span id="codAmount">0</span></div>
+                    <button class="pay-btn" onclick="confirmPayment()"><span>CONFIRM COD ORDER →</span></button>
+                </div>
+
+                <!-- Net Banking -->
+                <div id="netPanel" style="display:none;text-align:center;padding:40px 20px;">
+                    <div style="font-size:60px;margin-bottom:16px;">🏦</div>
+                    <h4 style="font-family:var(--font-display);font-size:24px;font-weight:900;margin-bottom:12px;">NET
+                        BANKING</h4>
+                    <p style="font-size:14px;color:var(--gray-600);margin-bottom:24px;">You will be redirected to your
+                        bank's secure portal to complete the payment.</p>
+                    <div class="form-group" style="max-width:300px;margin:0 auto 24px;">
+                        <label>Select Bank</label>
+                        <select
+                            style="border:1px solid var(--gray-200);padding:12px;font-family:var(--font-body);font-size:15px;outline:none;width:100%;">
+                            <option>State Bank of India</option>
+                            <option>HDFC Bank</option>
+                            <option>ICICI Bank</option>
+                            <option>Axis Bank</option>
+                            <option>Kotak Mahindra Bank</option>
+                            <option>Punjab National Bank</option>
+                            <option>Bank of Baroda</option>
+                        </select>
+                    </div>
+                    <button class="pay-btn" onclick="confirmPayment()"><span>PROCEED TO NET BANKING →</span></button>
+                    <div class="secure-badge">🔒 SECURED BY 256-BIT SSL ENCRYPTION</div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="payment-summary reveal-right">
+                <h3>ORDER SUMMARY</h3>
+                <div id="paymentSummaryItems"></div>
+                <div class="psum-line"><span>Subtotal</span><span id="psSubtotal">₹0</span></div>
+                <div class="psum-line"><span>Shipping</span><span style="color:#22c55e;">FREE</span></div>
+                <div class="psum-line"><span>GST (18%)</span><span id="psGST">₹0</span></div>
+                <div class="psum-line total"><span>TOTAL</span><span id="psTotal">₹0</span></div>
+                <div class="psum-customer" id="psCustomer" style="display:none;">
+                    <h4>DELIVERING TO</h4>
+                    <p id="psCustomerInfo"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-card">
+            <div class="success-icon">🎉</div>
+            <h2>ORDER <span>PLACED!</span></h2>
+            <p>Thank you for your order. Our team will contact you within 24 hours to confirm delivery details.</p>
+            <div class="order-id" id="orderId">ORDER #SC-000000</div>
+            <div style="display:flex;gap:12px;justify-content:center;">
+                <a href="index.html" class="btn-primary"><span>BACK TO HOME</span></a>
+                <a href="products.html" class="btn-outline">SHOP MORE</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="main.js"></script>
+    <script>
+        // Init payment page
+        const checkout = JSON.parse(localStorage.getItem('sc_checkout') || '{}');
+        const pm = checkout.paymentMethod || 'upi';
+
+        // Show right panel
+        const panels = { upi: 'upiPanel', card: 'cardPanel', cod: 'codPanel', netbanking: 'netPanel' };
+        const titles = { upi: 'PAY WITH UPI', card: 'PAY BY CARD', cod: 'CASH ON DELIVERY', netbanking: 'NET BANKING' };
+        Object.values(panels).forEach(id => document.getElementById(id).style.display = 'none');
+        document.getElementById(panels[pm] || 'upiPanel').style.display = 'block';
+        document.getElementById('panelTitle').textContent = titles[pm] || 'PAY WITH UPI';
+
+        // Render summary
+        function renderPaymentSummary() {
+            const cart = getCart();
+            const items = document.getElementById('paymentSummaryItems');
+            let subtotal = 0;
+            items.innerHTML = '';
+            cart.forEach(item => {
+                subtotal += item.price * item.qty;
+                items.innerHTML += `<div class="psum-line"><span style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${item.name} ×${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString('en-IN')}</span></div>`;
+            });
+            const gst = Math.round(subtotal * 0.18);
+            document.getElementById('psSubtotal').textContent = '₹' + subtotal.toLocaleString('en-IN');
+            document.getElementById('psGST').textContent = '₹' + gst.toLocaleString('en-IN');
+            document.getElementById('psTotal').textContent = '₹' + (subtotal + gst).toLocaleString('en-IN');
+            document.getElementById('upiAmount').textContent = (subtotal + gst).toLocaleString('en-IN');
+            document.getElementById('codAmount') && (document.getElementById('codAmount').textContent = (subtotal + gst).toLocaleString('en-IN'));
+
+            if (checkout.name) {
+                document.getElementById('psCustomer').style.display = 'block';
+                document.getElementById('psCustomerInfo').textContent = `${checkout.name} · ${checkout.phone} · ${checkout.address}`;
+            }
+        }
+        renderPaymentSummary();
+
+        // Format card number
+        window.formatCard = function (el) {
+            let v = el.value.replace(/\D/g, '').substring(0, 16);
+            v = v.replace(/(.{4})/g, '$1 ').trim();
+            el.value = v;
+            document.getElementById('cardNumDisplay').textContent = v || '•••• •••• •••• ••••';
+        };
+
+        window.confirmPayment = function () {
+            const btn = document.querySelector('.pay-btn');
+            btn.classList.add('loading');
+            btn.querySelector('span').textContent = 'PROCESSING...';
+            setTimeout(() => {
+                // Clear cart
+                localStorage.removeItem('sc_cart');
+                localStorage.removeItem('sc_checkout');
+                updateCartUI();
+                const orderId = 'SC-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('orderId').textContent = 'ORDER #' + orderId;
+                document.getElementById('successOverlay').classList.add('show');
+            }, 2000);
+        };
+    </script>
+</body>
+
+</html>
