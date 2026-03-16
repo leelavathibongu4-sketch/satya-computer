@@ -11,7 +11,7 @@
     <style>
         /* ── Solutions Page Styles ────────────────────────────────── */
         .sol-page-hero {
-            background: var(--off-white);
+            background: var(--bg-section);
             padding: 80px 40px 60px;
             position: relative;
             overflow: hidden;
@@ -35,7 +35,7 @@
         /* ── Solution Cards ─────────────────────────────────────── */
         .solutions-cards-section {
             padding: 80px 40px;
-            background: var(--off-white);
+            background: var(--bg-dark);
         }
 
         .solutions-cards-inner {
@@ -47,7 +47,7 @@
         }
 
         .sol-module {
-            background: var(--white);
+            background: var(--bg-card);
             border: 1px solid var(--gray-200);
             overflow: hidden;
             position: relative;
@@ -133,7 +133,7 @@
         .sol-module-line {
             width: 40px;
             height: 3px;
-            background: var(--orange);
+            background: var(--primary);
             margin-bottom: 20px;
         }
 
@@ -148,7 +148,7 @@
         }
 
         .sol-module-title .italic-word {
-            color: var(--orange);
+            color: var(--primary);
             font-style: italic;
         }
 
@@ -224,7 +224,7 @@
             font-family: var(--font-display);
             font-size: 180px;
             font-weight: 900;
-            color: rgba(232, 93, 4, 0.07);
+            color: rgba(59, 130, 246, 0.07);
             position: absolute;
             top: 20px;
             right: 60px;
@@ -237,7 +237,7 @@
             color: rgba(255, 255, 255, 0.04);
         }
 
-        .sol-detail-content {}
+
 
         .sol-detail-content .page-hero-overline {
             margin-bottom: 16px;
@@ -261,7 +261,7 @@
         }
 
         .sol-detail-title span {
-            color: var(--orange);
+            color: var(--primary);
             font-style: italic;
         }
 
@@ -285,7 +285,7 @@
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--orange);
+            color: #A855F7;
             margin-bottom: 32px;
             display: block;
         }
@@ -306,7 +306,7 @@
 
         .sol-feature::before {
             content: '▸';
-            color: var(--orange);
+            color: var(--primary);
             flex-shrink: 0;
             margin-top: 2px;
         }
@@ -343,7 +343,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--orange), transparent);
+            background: linear-gradient(90deg, var(--primary), transparent);
         }
 
         .sol-detail-card-icon {
@@ -379,7 +379,7 @@
             font-family: var(--font-display);
             font-size: 36px;
             font-weight: 900;
-            color: var(--orange);
+            color: var(--primary);
             line-height: 1;
             display: block;
         }
@@ -395,11 +395,12 @@
 
         /* ── CTA Section ─────────────────────────────────────────── */
         .sol-cta-section {
-            background: var(--orange);
+            background: #003366; /* Deep Business Blue */
             padding: 100px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-top: 1px solid rgba(255,159,28,0.1);
         }
 
         .sol-cta-section::before {
@@ -421,14 +422,14 @@
             font-size: clamp(42px, 6vw, 80px);
             font-weight: 900;
             text-transform: uppercase;
-            color: var(--white);
+            color: var(--primary); /* Vibrant Orange text */
             line-height: 0.9;
             margin-bottom: 24px;
         }
 
         .sol-cta-inner p {
             font-size: 18px;
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 40px;
             line-height: 1.65;
         }
@@ -456,11 +457,13 @@
         @media (max-width: 1024px) {
             .solutions-cards-inner {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .sol-detail-inner {
                 grid-template-columns: 1fr !important;
                 direction: ltr !important;
+                gap: 40px;
             }
 
             .sol-detail-section {
@@ -468,8 +471,14 @@
             }
 
             .sol-detail-number {
-                font-size: 100px;
+                font-size: 80px;
+                top: 0;
+                right: 20px;
+                opacity: 0.05;
             }
+            
+            .sol-module-title { font-size: 36px; }
+            .sol-detail-title { font-size: 40px; }
         }
 
         @media (max-width: 768px) {
@@ -497,9 +506,7 @@
     <div class="cursor-ring" id="cursorRing"></div>
     <div class="progress-bar" id="progressBar"></div>
 
-    <div class="announcement-bar">
-        <p>PREMIUM BUSINESS WORKSTATIONS NOW IN STOCK — <a href="products.html">SHOP NOW</a></p>
-    </div>
+
 
     <header class="site-header" id="siteHeader">
         <div class="header-inner">
@@ -786,8 +793,8 @@
                     <img src="images/logo.jpg" alt="Satya Computers" />
                     <div class="footer-logo-text"><span>SATYA</span><span>COMPUTERS</span></div>
                 </div>
-                <p class="footer-tagline">To provide reliable and affordable computing solutions to students,
-                    professionals, and tech enthusiasts.</p>
+                <p class="footer-tagline"><span class="mission-gradient">To provide reliable and affordable computing solutions to students,
+                    professionals, and tech enthusiasts.</span></p>
                 <a href="https://wa.me/918309178589" target="_blank" class="footer-whatsapp">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path

@@ -82,7 +82,7 @@
 
         /* Payment Panel */
         .payment-panel {
-            background: var(--white);
+            background: var(--bg-card);
             border: 1px solid var(--gray-200);
             padding: 36px;
         }
@@ -107,7 +107,7 @@
             width: 200px;
             height: 200px;
             margin: 0 auto 20px;
-            background: var(--white);
+            background: #fff; /* Keep QR background white for scanability */
             border: 2px solid var(--gray-200);
             display: flex;
             align-items: center;
@@ -125,12 +125,12 @@
 
         .qr-cell {
             aspect-ratio: 1;
-            background: var(--black);
+            background: #000;
             border-radius: 1px;
         }
 
         .qr-cell.w {
-            background: var(--white);
+            background: #fff;
         }
 
         .upi-id {
@@ -139,7 +139,7 @@
             font-weight: 600;
             color: var(--orange);
             letter-spacing: 0.06em;
-            background: var(--gray-100);
+            background: var(--bg-card);
             padding: 10px 20px;
             margin: 0 auto 20px;
             display: inline-block;
@@ -514,9 +514,7 @@
     <div class="cursor-ring" id="cursorRing"></div>
     <div class="progress-bar" id="progressBar"></div>
 
-    <div class="announcement-bar">
-        <p>PREMIUM BUSINESS WORKSTATIONS NOW IN STOCK — <a href="products.html">SHOP NOW</a></p>
-    </div>
+
     <header class="site-header" id="siteHeader">
         <div class="header-inner">
             <a href="index.html" class="site-logo">

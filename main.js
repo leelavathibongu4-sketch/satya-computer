@@ -26,6 +26,32 @@ if (dot && ring) {
   });
 }
 
+// ── Shared Smooth Scroll Interpolation ─────────────────────
+let currentScroll = window.scrollY;
+let targetScroll = window.scrollY;
+
+function updateScrollParallax() {
+    targetScroll = window.scrollY;
+    // Interpolate with 0.1 easing factor
+    currentScroll += (targetScroll - currentScroll) * 0.1;
+    
+    // Set variable on root for CSS parallax globally
+    document.documentElement.style.setProperty('--scrolled', currentScroll);
+
+    requestAnimationFrame(updateScrollParallax);
+}
+// start loop
+requestAnimationFrame(updateScrollParallax);
+
+// ── Hero Scroll Parallax ─────────────────────────────────────
+const parallaxBg = document.getElementById('parallaxBg');
+if (parallaxBg) {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        parallaxBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+    });
+}
+
 // ── Scroll Progress Bar ──────────────────────────────────────
 const progressBar = document.getElementById('progressBar');
 if (progressBar) {

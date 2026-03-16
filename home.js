@@ -20,18 +20,20 @@
 
 // ── Featured Products ────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // wait for PRODUCTS to be defined
     if (!window.PRODUCTS) return;
-    const featured = window.PRODUCTS.filter((_, i) => i < 4);
+    const featured = window.PRODUCTS.filter((_, i) => i < 8);
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
+
     featured.forEach((p, i) => {
         const card = document.createElement('div');
-        card.className = 'product-card';
-        card.style.transitionDelay = (i * 0.12) + 's';
+        card.className = 'product-card neon-card';
+        card.setAttribute('data-index', i);
         card.innerHTML = `
+      <div class="neon-card-glow"></div>
       <div class="product-card-img">
         <img src="${p.img}" alt="${p.name}" onerror="this.src='images/laptop1.png'"/>
+        <div class="card-img-shine"></div>
       </div>
       <div class="product-card-body">
         <div class="product-card-brand">${p.brand}</div>
@@ -39,46 +41,108 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="product-card-specs">${p.specs}</p>
         <div class="product-card-footer">
           <span class="product-card-price">₹${p.price.toLocaleString('en-IN')}</span>
-          <button class="add-to-cart-btn" onclick="addToCart(${JSON.stringify(p).replace(/"/g, "'").replace(/'/g, '&apos;')})">ADD TO CART</button>
+          <button class="add-to-cart-btn" id="cartBtn-${i}">
+            <span class="btn-icon">🛒</span>
+            <span class="btn-label">ADD TO CART</span>
+            <span class="btn-ripple"></span>
+          </button>
         </div>
       </div>
     `;
+        // Navigate to product page on card click
         card.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') return;
+            if (e.target.closest('.add-to-cart-btn')) return;
             window.location.href = 'products.html';
         });
+
+        // Add to cart with feedback animation
+        const btn = card.querySelector('.add-to-cart-btn');
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (btn.classList.contains('added')) return;
+            window.addToCart(p);
+            btn.classList.add('added');
+            btn.querySelector('.btn-label').textContent = '✓ ADDED!';
+            setTimeout(() => {
+                btn.classList.remove('added');
+                btn.querySelector('.btn-label').textContent = 'ADD TO CART';
+            }, 1800);
+        });
+
+        // 3D tilt on mouse move
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) / (rect.width / 2);
+            const dy = (e.clientY - cy) / (rect.height / 2);
+            card.style.transform = `
+        perspective(800px)
+        rotateY(${dx * 10}deg)
+        rotateX(${-dy * 8}deg)
+        translateZ(12px)
+        scale(1.03)
+      `;
+            card.querySelector('.neon-card-glow').style.opacity = '1';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) translateZ(0) scale(1)';
+            card.querySelector('.neon-card-glow').style.opacity = '0';
+        });
+
         grid.appendChild(card);
     });
 
-    // Re-observe new cards
+    // Show cards with stagger
     const cardObs = new IntersectionObserver((entries) => {
         entries.forEach((e, i) => {
             if (e.isIntersecting) {
-                setTimeout(() => e.target.classList.add('visible'), i * 100);
+                setTimeout(() => e.target.classList.add('visible'), i * 80);
                 cardObs.unobserve(e.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     grid.querySelectorAll('.product-card').forEach(c => cardObs.observe(c));
+});
 
-    // Fix add to cart button with proper data
-    grid.querySelectorAll('.add-to-cart-btn').forEach((btn, i) => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            window.addToCart(featured[i]);
-        });
+// ── Drag-to-Scroll on Elite Track ───────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.querySelector('.elite-track-wrapper');
+    if (!wrapper) return;
+
+    let isDown = false, startX, scrollLeft;
+
+    wrapper.addEventListener('mousedown', (e) => {
+        isDown = true;
+        wrapper.classList.add('dragging');
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
     });
-});
+    wrapper.addEventListener('mouseleave', () => {
+        isDown = false;
+        wrapper.classList.remove('dragging');
+    });
+    wrapper.addEventListener('mouseup', () => {
+        isDown = false;
+        wrapper.classList.remove('dragging');
+    });
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 1.6;
+        wrapper.scrollLeft = scrollLeft - walk;
+    });
 
-// Parallax on hero
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-    const scrolled = window.scrollY;
-    const orb1 = document.querySelector('.orb-1');
-    const orb2 = document.querySelector('.orb-2');
-    if (orb1) orb1.style.transform = `translateY(${scrolled * 0.3}px)`;
-    if (orb2) orb2.style.transform = `translateY(${scrolled * 0.2}px)`;
+    // Touch support
+    let touchStartX = 0, touchScrollLeft = 0;
+    wrapper.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].pageX;
+        touchScrollLeft = wrapper.scrollLeft;
+    }, { passive: true });
+    wrapper.addEventListener('touchmove', (e) => {
+        const dx = touchStartX - e.touches[0].pageX;
+        wrapper.scrollLeft = touchScrollLeft + dx;
+    }, { passive: true });
 });
-
-// Scroll Counter Animation (moved to main.js)

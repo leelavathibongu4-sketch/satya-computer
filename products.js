@@ -49,8 +49,14 @@ function renderProducts() {
         <h3 class="prod-name">${p.name}</h3>
         <p class="prod-specs">${p.specs}</p>
         <div class="prod-footer">
-          <span class="prod-price">₹${p.price.toLocaleString('en-IN')}</span>
-          <button class="prod-atc" data-idx="${i}">ADD TO CART</button>
+          <div class="prod-price-row">
+            <span class="prod-price">&#8377;${p.price.toLocaleString('en-IN')}</span>
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--gray-400);letter-spacing:0.1em;">IN STOCK</span>
+          </div>
+          <button class="prod-atc" data-idx="${i}">
+            <span class="prod-atc-icon">&#128722;</span>
+            <span>ADD TO CART</span>
+          </button>
         </div>
       </div>
     `;
@@ -73,11 +79,13 @@ function renderProducts() {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             window.addToCart(ps[i]);
-            btn.textContent = 'ADDED ✓';
+            btn.innerHTML = '<span class="prod-atc-icon">✓</span><span>ADDED!</span>';
             btn.style.background = '#22c55e';
+            btn.style.color = '#fff';
             setTimeout(() => {
-                btn.textContent = 'ADD TO CART';
+                btn.innerHTML = '<span class="prod-atc-icon">&#128722;</span><span>ADD TO CART</span>';
                 btn.style.background = '';
+                btn.style.color = '';
             }, 1500);
         });
     });

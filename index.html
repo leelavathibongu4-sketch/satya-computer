@@ -9,6 +9,7 @@
     content="Satya Computers — Premium refurbished laptops & workstations in Hyderabad. Dell, HP, Lenovo, MacBook at unbeatable prices." />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="voices_of_trust.css" />
 </head>
 
 <body>
@@ -19,10 +20,6 @@
   <!-- Progress Bar -->
   <div class="progress-bar" id="progressBar"></div>
 
-  <!-- Announcement Bar -->
-  <div class="announcement-bar">
-    <p>PREMIUM BUSINESS WORKSTATIONS NOW IN STOCK — <a href="products.html">SHOP NOW</a></p>
-  </div>
 
   <!-- Header -->
   <header class="site-header" id="siteHeader">
@@ -59,94 +56,50 @@
     </div>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero" id="hero">
-    <div class="hero-bg">
-      <div class="hero-grid-lines"></div>
-      <div class="hero-orb orb-1"></div>
-      <div class="hero-orb orb-2"></div>
-    </div>
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-badge reveal">
-          <span class="badge-dot"></span>
-          <span>// ENGINE CORE ONLINE</span>
-        </div>
-        <h1 class="hero-title reveal d1">
-          <span class="line-1" style="font-size: clamp(40px, 6vw, 84px);">SATYA COMPUTER</span>
-          <span class="line-2"
-            style="font-size: clamp(20px, 3vw, 36px); letter-spacing: 0.05em; display: block; margin-top: 0px; font-weight: 700;">PREMIUM
-            2ND HAND LAPTOPS</span>
-          <div class="hero-title-sub reveal d2" style="margin-top: 20px;">
-            <span class="orange-word" style="font-size: clamp(16px, 2vw, 24px); letter-spacing: 0.15em;">BEST QUALITY •
-              BEST PRICE</span>
-          </div>
-        </h1>
-        <p class="hero-desc reveal d3">Enterprise-grade refurbished laptops. Built for professionals who demand more —
-          at prices that make sense.</p>
-        <div class="hero-cta reveal d4">
-          <a href="products.html" class="btn-primary"><span>SHOP WORKSTATIONS</span><svg
-              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg></a>
-          <a href="solutions.html" class="btn-outline">OUR SOLUTIONS</a>
-        </div>
-        <div class="hero-stats reveal d5">
-          <div class="stat"><span class="stat-num" data-target="500" data-suffix="+">0+</span><span
-              class="stat-label">Units Sold</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat"><span class="stat-num" data-target="50" data-suffix="+">0+</span><span
-              class="stat-label">Models</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat"><span class="stat-num" data-target="100" data-suffix="%">0%</span><span
-              class="stat-label">Tested</span></div>
-        </div>
+  <!-- HERO MODERN SCI SECTION -->
+  <section class="hero-sci" id="hero">
+    <!-- Slow-moving parallax background -->
+    <div class="hero-bg-deep" id="heroBgDeep">
+      <video autoplay loop muted playsinline class="hero-sci-video">
+        <source src="assets/video.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-overlay"></div>
+      <div class="hero-parallax-layer" id="parallaxBg">
+        <div class="hero-orb orb-primary"></div>
+        <div class="hero-orb orb-accent"></div>
+        <div class="hero-grid-overlay"></div>
       </div>
-      <div class="hero-right reveal-right d2">
-        <div class="hero-card-container">
-          <div class="hero-card">
-            <div class="hero-card-header">
-              <span class="card-badge">ELITE SPEC</span>
-              <span class="card-hot">HOT</span>
-            </div>
-            <div class="hero-card-img">
-              <img src="images/DELL LATITUDE 7400.jpg" alt="Dell Latitude 7400"
-                onerror="this.src='images/laptop1.png'" />
-            </div>
-            <div class="hero-card-body">
-              <h3>DELL LATITUDE 7400</h3>
-              <p>Intel Core i7 · 16GB RAM · 512GB SSD</p>
-              <div class="hero-card-price">
-                <span class="price">₹28,000</span>
-                <a href="products.html" class="btn-primary"><span>VIEW</span></a>
-              </div>
-            </div>
-          </div>
-          <!-- Floating tags -->
-          <div class="float-tag ft-1">
-            <span>■</span> NEURAL ENGINE ACTIVE
-          </div>
-          <div class="float-tag ft-2">
-            <span>■</span> SYSTEM READY
+    </div>
+
+    <!-- Floating Laptop Icons (behind content) -->
+    <div class="floating-laptops" id="floatingLaptops">
+      <div class="laptop-icon laptop-1" data-speed="0.3">💻</div>
+      <div class="laptop-icon laptop-2" data-speed="0.5">🖥️</div>
+      <div class="laptop-icon laptop-3" data-speed="0.2">💻</div>
+      <div class="laptop-icon laptop-4" data-speed="0.4">🖱️</div>
+      <div class="laptop-icon laptop-5" data-speed="0.35">💻</div>
+      <div class="laptop-icon laptop-6" data-speed="0.25">⌨️</div>
+    </div>
+    
+    <!-- Main Content (moves at normal speed) -->
+    <div class="hero-center-stage">
+      <div class="sci-brand-unit">
+        <div class="hero-sci-content reveal d2">
+          <div class="hero-title-sc hero-title-line1">SATYA</div>
+          <div class="hero-title-sc hero-title-line2">COMPUTER SYSTEMS</div>
+          <div class="hero-subline">PREMIUM 2ND HAND LAPTOPS</div>
+          <div class="hero-sci-btns">
+            <a href="products.html" class="btn-primary"><span>EXPLORE STOCK</span></a>
+            <a href="#products" class="btn-primary"><span>VIEW FEATURED</span></a>
           </div>
         </div>
       </div>
     </div>
-    <!-- Countdown bar -->
-    <div class="hero-countdown">
-      <div class="hero-countdown-inner">
-        <div class="countdown-icon">⚡</div>
-        <div class="countdown-text"><strong>SYSTEM UPGRADE:</strong> FREE DDR4 RAM DOUBLING ON ALL DELL LATITUDES</div>
-        <div class="countdown-timer" id="countdown">
-          <div class="timer-unit"><span id="ch">47</span><small>HRS</small></div>
-          <span class="timer-sep">:</span>
-          <div class="timer-unit"><span id="cm">59</span><small>MIN</small></div>
-          <span class="timer-sep">:</span>
-          <div class="timer-unit"><span id="cs">51</span><small>SEC</small></div>
-        </div>
-        <a href="products.html" class="btn-primary"><span>CLAIM UPGRADE →</span></a>
-      </div>
+    
+
+    
+    <div class="scroll-down-hint">
+      <div class="mouse-icon"></div>
     </div>
   </section>
 
@@ -161,49 +114,241 @@
     </div>
   </div>
 
-  <!-- FEATURED PRODUCTS -->
-  <section class="featured-products" id="products">
+  <!-- BRANDS SHOWCASE -->
+  <section class="brands-showcase reveal">
     <div class="section-inner">
-      <div class="section-header reveal">
-        <div class="page-hero-overline">Featured Workstations</div>
-        <h2 class="section-title">HAND-PICKED <span>ELITE</span><br>MACHINES</h2>
-      </div>
-      <div class="products-grid" id="featuredGrid">
-        <!-- JS populated -->
-      </div>
-      <div class="section-cta reveal">
-        <a href="products.html" class="btn-primary"><span>VIEW ALL WORKSTATIONS →</span></a>
+      <div class="brands-grid-tech">
+        <div class="brand-item">DELL</div>
+        <div class="brand-item">HP</div>
+        <div class="brand-item">LENOVO</div>
+        <div class="brand-item">APPLE</div>
+        <div class="brand-item">ASUS</div>
+        <div class="brand-item">ACER</div>
+        <div class="brand-item">MICROSOFT</div>
+        <div class="brand-item">NVIDIA</div>
       </div>
     </div>
   </section>
 
-  <!-- SOLUTIONS TEASER -->
-  <section class="solutions-teaser">
-    <div class="solutions-teaser-inner">
-      <div class="sol-left reveal-left">
-        <div class="page-hero-overline">What We Do</div>
-        <h2 class="section-title">COMPUTING<br>SOLUTIONS FOR<br><span>EVERY SCALE</span></h2>
-        <p style="font-size:16px;color:var(--gray-600);line-height:1.7;margin:24px 0 32px;">From individual students to
-          enterprise deployments — we deliver reliable, affordable computing for every need.</p>
-        <a href="solutions.html" class="btn-primary"><span>EXPLORE SOLUTIONS</span></a>
+  <!-- FEATURED PRODUCTS / ELITE WORKSTATIONS -->
+  <section class="featured-products elite-section" id="products">
+    <div class="section-inner">
+      <div class="section-header elite-header reveal">
+        <div class="page-hero-overline">Inventory Highlights</div>
+        <h2 class="section-title">ELITE <span>WORKSTATIONS</span></h2>
+        <p class="section-subtitle">Hand-picked premium refurbished laptops — tested, certified, and ready to perform.</p>
       </div>
-      <div class="sol-right">
-        <div class="sol-card reveal d1">
-          <div class="sol-card-icon">🏢</div>
+      <div class="elite-track-wrapper">
+        <div class="elite-track" id="featuredGrid">
+          <!-- JS populated -->
+        </div>
+      </div>
+      <div class="elite-browse-cta reveal d3">
+        <div class="elite-cta-line"></div>
+        <a href="products.html" class="browse-all-btn" id="browseAllBtn">
+          <span class="browse-btn-icon">💻</span>
+          <span class="browse-btn-text">BROWSE ALL LAPTOPS</span>
+          <span class="browse-btn-arrow">→</span>
+        </a>
+        <div class="elite-cta-line"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WHY CHOOSE SATYA -->
+  <section class="solutions-section" id="solutions">
+    <div class="section-inner">
+      <div class="section-header center-align reveal">
+        <div class="page-hero-overline">The Satya Advantage</div>
+        <h2 class="section-title">WHY <span>SATYA COMPUTER</span></h2>
+        <p class="section-subtitle">Premium quality secondary laptops with enterprise-grade reliability and expert Hyderabad-based support.</p>
+      </div>
+      
+      <div class="solutions-grid">
+        <!-- Col 1 -->
+        <div class="sol-col reveal d1">
+          <div class="sol-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1v1H9V7zm5 0h1v1h-1V7zm-5 4h1v1H9v-1zm5 0h1v1h-1v-1zm-5 4h1v1H9v-1zm5 0h1v1h-1v-1z" />
+            </svg>
+          </div>
           <h3>CORPORATE SETUP</h3>
-          <p>End-to-end IT infrastructure for modern workspaces.</p>
+          <p class="sol-desc">End-to-end IT infrastructure upgrades designed for modern workspaces.</p>
+          <ul class="sol-features">
+            <li><span class="check">✓</span> Bulk deployment & provisioning</li>
+            <li><span class="check">✓</span> Enterprise-grade security protocols</li>
+            <li><span class="check">✓</span> On-site installation & networking</li>
+            <li><span class="check">✓</span> Dedicated corporate tech support</li>
+          </ul>
         </div>
-        <div class="sol-card reveal d2">
-          <div class="sol-card-icon">🎓</div>
+        
+        <div class="sol-divider"></div>
+
+        <!-- Col 2 -->
+        <div class="sol-col reveal d2">
+          <div class="sol-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
           <h3>EDUCATION LABS</h3>
-          <p>High-density computing for academic environments.</p>
+          <p class="sol-desc">High-density smart computing solutions for schools, colleges, and training centers.</p>
+          <ul class="sol-features">
+            <li><span class="check">✓</span> Cost-effective bulk licensing</li>
+            <li><span class="check">✓</span> Robust hardware for student use</li>
+            <li><span class="check">✓</span> Centralized lab management systems</li>
+            <li><span class="check">✓</span> Annual comprehensive maintenance</li>
+          </ul>
         </div>
-        <div class="sol-card reveal d3">
-          <div class="sol-card-icon">⚡</div>
+        
+        <div class="sol-divider"></div>
+
+        <!-- Col 3 -->
+        <div class="sol-col reveal d3">
+          <div class="sol-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
           <h3>ELITE WORKSTATIONS</h3>
-          <p>Precision power for architects and data scientists.</p>
+          <p class="sol-desc">Precision power systems engineered for architects, developers & data scientists.</p>
+          <ul class="sol-features">
+            <li><span class="check">✓</span> High-performance GPUs</li>
+            <li><span class="check">✓</span> Custom RAM & SSD upgrades</li>
+            <li><span class="check">✓</span> Optimized thermal setups</li>
+            <li><span class="check">✓</span> ISV-certified system performance</li>
+          </ul>
         </div>
       </div>
+      
+      <div class="section-cta center-align reveal d4" style="margin-top: 50px;">
+        <a href="about.html" class="btn-primary"><span>OUR COMMITMENT →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICES OF TRUST — Auto-Scrolling Reviews -->
+  <section class="vot-section" id="reviews">
+    <div class="vot-header reveal">
+      <div class="page-hero-overline">Testimonials</div>
+      <h2 class="vot-title"><span>VOICES OF TRUST</span></h2>
+      <p class="vot-subtitle">What our customers say about their Satya Computers experience</p>
+    </div>
+    <div class="vot-track-wrapper">
+      <div class="vot-track" id="votTrack">
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#FF9F1C,#E88900)">AR</div>
+            <div class="vot-meta"><div class="vot-name">Arjun Kumar</div><div class="vot-laptop">Dell Latitude 7400</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Bought a Latitude 7400 — it looks brand new! The performance is amazing for my coding projects. Best decision I made."</p>
+          <div class="vot-tag">Software Developer</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#0066FF,#0044CC)">SR</div>
+            <div class="vot-meta"><div class="vot-name">Sneha Reddy</div><div class="vot-laptop">HP EliteBook 840 G6</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"The best place in Ameerpet for genuine refurbished laptops. Very professional team, transparent pricing, and top-notch quality."</p>
+          <div class="vot-tag">MBA Student</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a)">VS</div>
+            <div class="vot-meta"><div class="vot-name">Vikram Singh</div><div class="vot-laptop">Lenovo ThinkPad X1</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Great support after sale. They upgraded my RAM on-site in minutes. Incredible service — I'll always come back here."</p>
+          <div class="vot-tag">IT Consultant</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#3B82F6,#2563EB)">PM</div>
+            <div class="vot-meta"><div class="vot-name">Priya Mehta</div><div class="vot-laptop">MacBook Pro 2018</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Got a MacBook Pro at half the market price. Thoroughly tested and perfectly clean. Satya Computers is truly trustworthy!"</p>
+          <div class="vot-tag">Graphic Designer</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#FF8A00,#E67C00)">RK</div>
+            <div class="vot-meta"><div class="vot-name">Ravi Kiran</div><div class="vot-laptop">Dell Precision 5530</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Needed a powerful machine for ML work. Got a Dell Precision with NVIDIA GPU at an unbelievable price. Exceptional value!"</p>
+          <div class="vot-tag">Data Scientist</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706)">NP</div>
+            <div class="vot-meta"><div class="vot-name">Nisha Patel</div><div class="vot-laptop">HP EliteBook 640 G9</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Ordered 25 laptops for our team. Satya delivered all configured and ready in 2 days. Incredible corporate support!"</p>
+          <div class="vot-tag">HR Manager</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#00C2FF,#3B82F6)">SK</div>
+            <div class="vot-meta"><div class="vot-name">Sai Karthik</div><div class="vot-laptop">Lenovo ThinkPad T480</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Perfect laptop for college. The ThinkPad T480 handles all my engineering software without a hiccup. Highly recommended!"</p>
+          <div class="vot-tag">Engineering Student</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#FFAE4D,#FF8A00)">AM</div>
+            <div class="vot-meta"><div class="vot-name">Ananya Mishra</div><div class="vot-laptop">Dell Latitude 5490</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"I was skeptical about refurbished laptops, but Satya changed my mind completely. Premium quality, unbeatable price."</p>
+          <div class="vot-tag">Content Creator</div>
+        </div>
+        <!-- Seamless duplicate set -->
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#FF9F1C,#E88900)">AR</div>
+            <div class="vot-meta"><div class="vot-name">Arjun Kumar</div><div class="vot-laptop">Dell Latitude 7400</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Bought a Latitude 7400 — it looks brand new! The performance is amazing for my coding projects. Best decision I made."</p>
+          <div class="vot-tag">Software Developer</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#0066FF,#0044CC)">SR</div>
+            <div class="vot-meta"><div class="vot-name">Sneha Reddy</div><div class="vot-laptop">HP EliteBook 840 G6</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"The best place in Ameerpet for genuine refurbished laptops. Very professional team, transparent pricing, top-notch quality."</p>
+          <div class="vot-tag">MBA Student</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#22c55e,#16a34a)">VS</div>
+            <div class="vot-meta"><div class="vot-name">Vikram Singh</div><div class="vot-laptop">Lenovo ThinkPad X1</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Great support after sale. They upgraded my RAM on-site in minutes. Incredible service — I'll always come back here."</p>
+          <div class="vot-tag">IT Consultant</div>
+        </div>
+        <div class="vot-card">
+          <div class="vot-card-top">
+            <div class="vot-avatar" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">PM</div>
+            <div class="vot-meta"><div class="vot-name">Priya Mehta</div><div class="vot-laptop">MacBook Pro 2018</div></div>
+          </div>
+          <div class="vot-stars">★★★★★</div>
+          <p class="vot-text">"Got a MacBook Pro at half the market price. Thoroughly tested and perfectly clean. Satya Computers is truly trustworthy!"</p>
+          <div class="vot-tag">Graphic Designer</div>
+        </div>
+      </div>
+      <div class="vot-fade-left"></div>
+      <div class="vot-fade-right"></div>
     </div>
   </section>
 
@@ -251,7 +396,7 @@
       <div class="mission-content reveal">
         <div class="page-hero-overline">Our Purpose</div>
         <blockquote class="mission-quote">
-          "To provide reliable and affordable computing solutions to students, professionals, and tech enthusiasts."
+          "<span class="mission-gradient">To provide reliable and affordable computing solutions to students, professionals, and tech enthusiasts.</span>"
         </blockquote>
         <p class="mission-sub">Located in the heart of Hyderabad, we've been the trusted name for premium refurbished
           hardware since day one.</p>
@@ -260,16 +405,21 @@
     </div>
   </section>
 
-  <!-- CONTACT STRIP -->
-  <section class="contact-strip">
-    <div class="contact-strip-inner">
-      <div class="reveal">
-        <h3>READY TO UPGRADE YOUR SYSTEM?</h3>
-        <p>Visit our store or contact us — same-day service available.</p>
-      </div>
-      <div class="contact-buttons reveal d2">
-        <a href="contact.html" class="btn-primary"><span>CONTACT US</span></a>
-        <a href="https://wa.me/918309178589" target="_blank" class="btn-white-outline">WHATSAPP US</a>
+  <!-- CONTACT SECTION — Premium Card Layout -->
+  <section class="contact-strip-v2">
+    <div class="section-inner">
+      <div class="contact-card reveal">
+        <div class="contact-card-content">
+          <div class="page-hero-overline">Get In Touch</div>
+          <h2 class="contact-card-title">CONTACT US</h2>
+          <p class="contact-card-subtitle">READY TO POWER YOUR BUSINESS?</p>
+          <p class="contact-card-desc">Visit our store or message us today for premium hardware solutions and expert technical support. Same-day service available across Hyderabad.</p>
+          
+          <div class="contact-card-actions">
+            <a href="contact.html" class="btn-orange-solid">CONTACT US</a>
+            <a href="https://wa.me/918309178589" target="_blank" class="btn-contact-outline">WHATSAPP US</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -282,8 +432,8 @@
           <img src="images/logo.jpg" alt="Satya Computers" />
           <div class="footer-logo-text"><span>SATYA</span><span>COMPUTERS</span></div>
         </div>
-        <p class="footer-tagline">To provide reliable and affordable computing solutions to students, professionals, and
-          tech enthusiasts.</p>
+        <p class="footer-tagline"><span class="mission-gradient">To provide reliable and affordable computing solutions to students, professionals, and
+          tech enthusiasts.</span></p>
         <a href="https://wa.me/918309178589" target="_blank" class="footer-whatsapp">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -359,6 +509,38 @@
 
   <script src="main.js"></script>
   <script src="home.js"></script>
-</body>
+  <script src="particles.js"></script>
 
+  <script>
+    /* ── Hero Parallax: background moves slow, icons drift with mouse ── */
+    const heroBg    = document.getElementById('heroBgDeep');
+    const laptopIcons = document.querySelectorAll('.laptop-icon');
+
+    // Scroll: background drifts at 30% scroll speed
+    window.addEventListener('scroll', () => {
+      const sy = window.pageYOffset;
+      if (heroBg) heroBg.style.transform = `translateY(${sy * 0.3}px)`;
+    }, { passive: true });
+
+    // Mouse move: each laptop icon shifts by its own depth factor
+    document.addEventListener('mousemove', (e) => {
+      const cx = window.innerWidth  / 2;
+      const cy = window.innerHeight / 2;
+      const dx = (e.clientX - cx) / cx;   // -1 to 1
+      const dy = (e.clientY - cy) / cy;   // -1 to 1
+
+      laptopIcons.forEach(icon => {
+        const speed = parseFloat(icon.dataset.speed || 0.3);
+        const mx = dx * 28 * speed;
+        const my = dy * 18 * speed;
+        icon.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)';
+        // Keep the float+rotate animation via CSS, add offset via custom property
+        icon.style.setProperty('--mx', `${mx}px`);
+        icon.style.setProperty('--my', `${my}px`);
+        icon.style.marginLeft = `${mx}px`;
+        icon.style.marginTop  = `${my}px`;
+      });
+    }, { passive: true });
+  </script>
+</body>
 </html>
